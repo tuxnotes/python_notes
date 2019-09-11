@@ -17,4 +17,14 @@ list(map(lambda *args: args, chinese, math, english))
 
 from itertools import chain
 
+c1 = [randint(60,100) for _ in range(20)]
+c2 = [randint(60,100) for _ in range(20)]
+c3 = [randint(60,100) for _ in range(23)]
+c4 = [randint(60,100) for _ in range(25)]
+len([x for x in chain(c1,c2,c3,c4) if x > 90])
 
+s = 'abc;123|xyz;678|fweuow\tjzka'
+list(chain(*list(map(lambda ss: ss.split('|'), s.split(';')))))
+
+from functools import reduce
+list(reduce(lambda it_s,sep: chain(*map(lambda ss: ss.split(sep),it_s)),';|\t',[s]))
