@@ -122,3 +122,20 @@ reference: https://docs.python.org/3/howto/unicode.html
 encoding:是一种规则，将unicode string转换成内存bytes(8-bit)单个字节表示的规则
 Python2: 默认encoding是 ascii
 Python3：默认encoding是 utf8
+
+## 5.2 如何处理二进制文件
+
+**实际案例**
+
+wav是一种音频文件的格式，音频文件为二进制文件。
+wav文件由头部信息和音频采用数据构成。前面为头部信息，包括声道数，
+采样频率，编码位宽等等，后面是音频采样数据。
+
+使用Python，分析一个wav文件头部信息，处理音频数据。
+
+**解决方案**
+
+open函数想以二进制模式打开文件，指定mode参数为'b'
+二进制数据可以用readinto，读入到提前分配好的buffer中
+解析二进制数据可以使用标准库中的struct模块中的unpack方法
+
