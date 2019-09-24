@@ -20,6 +20,20 @@ Python灰帽子,Justin Seitz,电子工业出版社,39.00
 使用标准库中的csv模块，使用其中的reader和writer完成csv文件读写
 
 ## 6.2 如何读写json数据
+
+**实际案例**
+
+在web应用中常用JSON(JavaScript Object Notation)格式传输数据，如：
+
+1. 利用http://httpbin.org/API对发送的http请求进行观测
+2. 爬虫程序利用Splash渲染引擎渲染页面
+
+在Python中如何读写json数据？
+
+**解决方案**
+
+标准库中的json模块，使用其中loads,dumps函数完成json数据的读写
+
 ## 6.3 如何解析简单的xml文档
 
 **实际案例**
