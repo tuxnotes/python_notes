@@ -51,3 +51,8 @@ xml是极为常用的标记性语言，可提供统一的方法来描述应用�
 </data>
 
 python中如何解析xml文档
+
+**解决方案**
+
+使用标准库中的xml.etree.ElementTree
+xml是数树状结构
