@@ -56,3 +56,34 @@ python中如何解析xml文档
 
 使用标准库中的xml.etree.ElementTree
 xml是数树状结构
+
+## 6.4 如何构建xml文档
+
+**实际案例**
+
+某些时候，需要将其他格式的数据转换为xml，例如把书籍信息csv文件转换成相应的xml
+
+books.csv
+
+    书名,作者,出版社,价格
+    精通scrapy网络爬虫,刘硕,清华大学出版社,46.00
+    .......
+
+
+books.xml
+
+    <Data>
+        <Book>
+            <书名>精通scrapy网络爬虫</书名>
+            <作者>刘硕</作者>
+            <出版社>清华大学出版社</出版社>
+            <价格>46.00</价格>
+        </Book>
+        ........
+    </Data>
+
+**解决方案**
+
+使用标准库中的xml.etree.ElementTree,构建ElementTree,然后调用write方法写入文件。
+
+
