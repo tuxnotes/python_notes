@@ -87,3 +87,25 @@ books.xml
 使用标准库中的xml.etree.ElementTree,构建ElementTree,然后调用write方法写入文件。
 
 
+## 6.5 如何读写excel文件
+
+**实际案例**
+
+Microsoft Excel是日常办公中使用最频繁的软件，其数据格式为xsl,xlsx,是一种非常常用的电子表格。
+
+姓名    语文    数学    外语
+李雷    95      99      96
+韩梅    94      100     93
+张峰    98      95      95
+.......
+
+利用Python读写excel，添加"总分"列，计算每个人总分。
+
+**解决方案**
+
+使用pip安装：pip install xlrd xlwt
+使用第三方库xlrd和xlwt这两个库分别用于读写excel
+
+
+
+
