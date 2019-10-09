@@ -27,6 +27,12 @@ https://intrinio.com/tutorial/web_api
 2. 使用一个ConvertThread线程进行转换(CPU)
 3. 下载线程把下载数据安全地传递给转换线程
 
+GIL属于进程，不同进程中的GIL是相互独立的
+
 **解决方案**
 
+使用标准库中的queue.Queue,它是一个线程安全的队列
+
+1. Download 线程把下载数据放入队列
+2. Convert线程从队列里提取数据
 
