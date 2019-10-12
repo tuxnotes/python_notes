@@ -21,9 +21,9 @@ class JpegStream(Thread):
     def unregister(self, pr):
         self.lock.acquire()
         pw = self.pipes.pop(pr)
-        sefl.lock.release()
-        so.close(pr)
-        so.close(pw)
+        self.lock.release()
+        os.close(pr)
+        os.close(pw)
 
     def capture(self):
         cap = self.cap
@@ -50,24 +50,28 @@ class JpegStream(Thread):
 class JpegRetriever:
     def __init__(self, streamer):
         self.streamer = streamer
+        # 使用线程本地数据
+        self.local = threading.local()
 
     def retrieve(self):
         while True:
-            ns = os.read(self.pipe, 8)
+            ns = os.read(self.local.pipe, 8)
             n = struct.unpack('l', ns)[0]
-            data = os.read(self.pipe, n)
+            data = os.read(self.local.pipe, n)
             yield data
 
     def __enter__(self):
-        if hasattr(self, 'pipe'):
+        if hasattr(self.local, 'pipe'):
             raise RuntimeError()
 
-        self.pipe = streamer.register()
+        # 将所有pipe变成线程本地数据
+        # self.pipe = streamer.register()
+        self.local.pipe = streamer.register()
         return self.retrieve()
 
     def __exit__(self, *args):
-        self.streamer.unregister(self.pipe)
-        del self.pipe
+        self.streamer.unregister(self.local.pipe)
+        del self.local.pipe
         return True
 
 class WebHandler(BaseHTTPRequestHandler):
@@ -112,6 +116,9 @@ if __name__ == "__main__":
     HOST = 'localhost'
     PORT = 9000
     print('Start Server ... (http://%s:%s)' % (HOST, PORT))
-    httpd = TCPServer((HOST, PORT), WebHandler)
+    # 为了支持多线程，需要将TCPServer改成ThreadingTCPServer,多线程版本
+    # 每个线程需要独立的管道
+    # httpd = TCPServer((HOST, PORT), WebHandler)
+    httpd = ThreadingTCPServer((HOST, PORT), WebHandler)
     httpd.serve_forever()
 
