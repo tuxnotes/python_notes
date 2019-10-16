@@ -91,3 +91,10 @@ GIL属于进程，不同进程中的GIL是相互独立的
 **解决方案**
 
 使用标准库中multiprocessing.Process, 它可以启动子进程执行任务操作接口，进程间通信，进程间同步等都与Threading.Thread类似
+多个线程的虚拟地址空间是相同的，进程间的虚拟地址空间不同
+
+进程间通信multiprocessing.Queue multiprocessing.Pipe
+
+多个线程中的Queue使用的是主机的地址空间，而multiprocessing的Queue是实现在内核地址空间的pipe
+
+
